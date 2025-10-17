@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { error } from "console";
+
 import { prisma } from "../../lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
