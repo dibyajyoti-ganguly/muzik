@@ -1,4 +1,3 @@
-
 import { prisma } from "../../lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
@@ -37,5 +36,24 @@ export async function POST(req: NextRequest) {
       message: "Error while adding stream",
       error: e,
     });
+  }
+}
+
+export async function GET(req: NextRequest) {
+  try {
+    const userId = req.nextUrl.searchParams.get("creatorId");
+
+    const streams = await prisma.stream.findMany({
+      where: {
+        userId: userId ?? "",
+      },
+    });
+
+    return NextResponse.json(streams);
+  } catch (e) {
+    return NextResponse.json(
+      { message: "Error while fetching streams", error: e },
+      { status: 500 }
+    );
   }
 }
