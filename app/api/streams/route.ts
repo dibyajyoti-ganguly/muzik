@@ -1,6 +1,7 @@
 import { prisma } from "../../lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
+import { GetVideoDetails } from "youtube-search-api";
 
 const YT_Regex =
   /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{11})(?:[?&].*)?$/;
@@ -21,20 +22,28 @@ export async function POST(req: NextRequest) {
 
     const extractedId = data.url.split("?v=")[1];
 
+    const video_data = await GetVideoDetails(extractedId);
+
     await prisma.stream.create({
       data: {
         userId: data.creatorId,
         url: data.url,
         extractedId: extractedId,
+        title: video_data.title ?? "Can't find video",
+        thumbnail: JSON.stringify(video_data.thumbnail.thumbnails[4].url),
         type: "YouTube",
       },
     });
 
     return NextResponse.json({ message: "Sucessfully added stream" });
   } catch (e) {
+    console.error(e);
     return NextResponse.json({
       message: "Error while adding stream",
-      error: e,
+      error:
+        e instanceof Error
+          ? { name: e.name, message: e.message, stack: e.stack }
+          : e,
     });
   }
 }

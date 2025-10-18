@@ -16,7 +16,7 @@ datasource db {
 
 model User {
   id       String   @id @default(uuid())
-  email    String
+  email    String   @unique
   provider Provider
   streams  Stream[]
   upvotes  Upvote[]
@@ -27,6 +27,8 @@ model Stream {
   type        StreamType
   url         String
   extractedId String
+  title       String
+  thumbnail   String
   active      Boolean    @default(true)
   upvotes     Upvote[]
   userId      String

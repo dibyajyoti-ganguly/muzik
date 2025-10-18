@@ -14,12 +14,20 @@ const handler = NextAuth({
       console.log(params);
 
       try {
-        await prisma.user.create({
-          data: {
+        const user = await prisma.user.findFirst({
+          where: {
             email: params.user.email ?? "",
-            provider: "Google",
           },
         });
+
+        if (!user) {
+          await prisma.user.create({
+            data: {
+              email: params.user.email ?? "",
+              provider: "Google",
+            },
+          });
+        }
       } catch (e) {
         console.log(e);
         return false;
