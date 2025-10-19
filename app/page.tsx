@@ -1,33 +1,14 @@
 "use client";
+import Navbar from "../components/Navbar";
+import Hero from "@/components/Hero";
+import Features from "@/components/Features";
 
-import { signIn, signOut, useSession } from "next-auth/react";
-
-export default function Appbar() {
-  const session = useSession();
-
+export default function Home() {
   return (
-    <div className="flex justify-around mt-4">
-      <p>Hello Next!</p>
-      {session.data?.user && (
-        <button
-          className="w-24 h-10 bg-blue-600 text-white cursor-pointer"
-          onClick={() => {
-            signOut();
-          }}
-        >
-          Logout
-        </button>
-      )}
-      {!session.data?.user && (
-        <button
-          className="w-24 h-10 bg-red-600 text-white cursor-pointer"
-          onClick={() => {
-            signIn();
-          }}
-        >
-          Sign In
-        </button>
-      )}
-    </div>
+    <main className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20">
+      <Navbar />
+      <Hero />
+      <Features />
+    </main>
   );
 }
