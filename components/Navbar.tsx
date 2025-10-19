@@ -1,4 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
+import { ThemeToggle } from "./theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Music, ArrowRight } from "lucide-react";
 
@@ -34,16 +35,22 @@ const Navbar = () => {
               Pricing
             </a>
           </div>
-          {session.data?.user && (
-            <Button className="gap-2 cursor-pointer" onClick={() => signOut()}>
-              Logout <ArrowRight className="h-4 w-4" />
-            </Button>
-          )}
-          {!session.data?.user && (
-            <Button className="gap-2 cursor-pointer" onClick={() => signIn()}>
-              Sign In <ArrowRight className="h-4 w-4" />
-            </Button>
-          )}
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            {session.data?.user && (
+              <Button
+                className="gap-2 cursor-pointer"
+                onClick={() => signOut()}
+              >
+                Logout <ArrowRight className="h-4 w-4" />
+              </Button>
+            )}
+            {!session.data?.user && (
+              <Button className="gap-2 cursor-pointer" onClick={() => signIn()}>
+                Sign In <ArrowRight className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </nav>
