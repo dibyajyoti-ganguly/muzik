@@ -23,7 +23,7 @@ const Hero = () => {
                 <Play className="h-5 w-5" />
                 Start Streaming
               </Button>
-              <Button size="lg" variant="outline">
+              <Button size="lg" variant="outline" className="cursor-pointer">
                 Watch Demo
               </Button>
             </div>

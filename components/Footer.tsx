@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="mx-auto max-w-7xl">
         <div className="border-t border-border/40 pt-8 flex flex-col md:flex-row items-center justify-between">
           <p className="text-sm text-muted-foreground">
-            © 2025 SoundVote. All rights reserved.
+            © 2025 Muzik. All rights reserved.
           </p>
         </div>
       </div>
